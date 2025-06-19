@@ -5,22 +5,24 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 
 const ONBOARDING_KEY = "onboarding_language";
-const AUTH_KEY = "is_authenticated";
 
 const Onboarding = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            const isAuth = await AsyncStorage.getItem(AUTH_KEY);
+    const checkAuth = async () => {
+        const isAuth = await AsyncStorage.getItem("token");
 
-            if (isAuth === "true") {
-                router.replace("/");
-            } else {
-                setLoading(false);
-            }
-        };
+        console.log(isAuth);
+
+        if (isAuth) {
+            router.replace("/(tabs)");
+        } else {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         checkAuth();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, Text, type ButtonProps } from "react-native";
 
-const Button = (props: ButtonProps & { type?: "primary" | "secondary" }) => {
+const Button = (props: ButtonProps & { type?: "primary" | "secondary" } & { loading?: boolean }) => {
     const { onPress, title, type = "primary", disabled } = props;
     return (
         <Pressable

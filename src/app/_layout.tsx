@@ -3,6 +3,9 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
+import { Provider } from "react-redux";
+import store from "./store";
+
 import "react-native-reanimated";
 import "../../global.css";
 
@@ -26,21 +29,23 @@ export default function RootLayout() {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 20} style={{ flex: 1 }}>
-                <ThemeProvider value={MyTheme}>
-                    <Stack screenOptions={{ headerShown: false }}>
-                        <Stack.Screen
-                            name="index"
-                            options={{
-                                title: "Onboarding",
-                            }}
-                        />
-                        <Stack.Screen name="+not-found" />
-                    </Stack>
-                    <StatusBar style="auto" />
-                </ThemeProvider>
-            </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+        <Provider store={store}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 20} style={{ flex: 1 }}>
+                    <ThemeProvider value={MyTheme}>
+                        <Stack screenOptions={{ headerShown: false }}>
+                            <Stack.Screen
+                                name="index"
+                                options={{
+                                    title: "Onboarding",
+                                }}
+                            />
+                            <Stack.Screen name="+not-found" />
+                        </Stack>
+                        <StatusBar style="auto" />
+                    </ThemeProvider>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+        </Provider>
     );
 }

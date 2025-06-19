@@ -1,19 +1,42 @@
+import { usePostLoginMutation } from "@/api/auth.api";
 import ArrowLeftIcon from "@/components/icons/arrow-left-icon";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import InputPhone from "@/components/ui/input-phone";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Pressable, SafeAreaView, Text, View } from "react-native";
 
 export default function Login() {
     const router = useRouter();
+    const [postLogin, { isLoading }] = usePostLoginMutation();
 
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, setError } = useForm();
 
-    const onSubmit: SubmitHandler<unknown> = (data) => {
-        console.log(data);
+    const isAuth = async (token: string) => {
+        await AsyncStorage.setItem("token", token);
+    };
+
+    const onSubmit: SubmitHandler<{ phone: string; password: string }> = async (data) => {
+        const preparedData = {
+            phone: data?.phone?.replace(/[^\d+]/g, ""),
+            password: data?.password,
+        };
+
+        try {
+            const response = await postLogin(preparedData).unwrap();
+            await isAuth(response?.data?.token);
+            router.replace("/(tabs)");
+            console.log(response);
+        } catch (error) {
+            const newError = error as { data: { message: string } };
+            const message = newError?.data?.message || "Произошла ошибка";
+
+            setError("phone", { type: "manual", message });
+            setError("password", { type: "manual", message });
+        }
     };
 
     return (
@@ -54,7 +77,13 @@ export default function Login() {
                         </View>
                     </View>
                 </View>
-                <Button title="Продолжить" onPress={handleSubmit(onSubmit)} />
+                <Button
+                    title="Продолжить"
+                    // Приводим onSubmit к типу SubmitHandler<FieldValues>, чтобы устранить ошибку типов
+                    onPress={handleSubmit(onSubmit as SubmitHandler<FieldValues>)}
+                    disabled={isLoading}
+                    loading={isLoading}
+                />
             </View>
         </SafeAreaView>
     );

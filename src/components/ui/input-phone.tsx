@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#B8B8B8",
         paddingHorizontal: 12,
-        fontSize: 14,
+        fontSize: 12,
         color: "#1D1D1D",
     },
     inputFocused: {
