@@ -2,7 +2,7 @@ import Button from "@/components/ui/button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { Platform, SafeAreaView, Text, View } from "react-native";
 
 const ONBOARDING_KEY = "onboarding_language";
 
@@ -35,7 +35,14 @@ const Onboarding = () => {
     if (loading) return null;
 
     return (
-        <SafeAreaView style={{ flex: 1 }} className="bg-primary-500 justify-end">
+        <SafeAreaView
+            style={{
+                flex: 1,
+                paddingBottom: Platform.OS === "android" ? 60 : 0,
+                paddingTop: Platform.OS === "android" ? 60 : 0,
+            }}
+            className="bg-primary-500 justify-end"
+        >
             <View className="flex-1 items-center justify-end gap-3 px-5">
                 <Text>Выберите язык / Тілді таңдаңыз</Text>
                 <Button title="Русский" onPress={() => selectLanguage("ru")} type="secondary" />

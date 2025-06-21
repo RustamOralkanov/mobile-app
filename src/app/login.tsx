@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Pressable, SafeAreaView, Text, View } from "react-native";
+import { Platform, Pressable, SafeAreaView, Text, View } from "react-native";
 
 export default function Login() {
     const router = useRouter();
@@ -40,7 +40,7 @@ export default function Login() {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
+        <SafeAreaView style={{ flex: 1, marginHorizontal: 20, paddingTop: Platform.OS === "android" ? 60 : 0, paddingBottom: Platform.OS === "android" ? 60 : 0 }}>
             <View className="flex-1 items-start justify-between">
                 <View>
                     <Pressable className="flex-row items-center gap-2.5" onPress={() => router.replace("/")}>

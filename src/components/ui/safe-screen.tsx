@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { Platform, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
 const SafeScreen = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -16,5 +16,6 @@ export default SafeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: Platform.OS === "android" ? 60 : 0,
     },
 });

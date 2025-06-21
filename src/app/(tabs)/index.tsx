@@ -1,9 +1,11 @@
 import CaretRightIcon from "@/components/icons/caret-right-icon";
+import ComplexCard from "@/components/ui/complex-card";
 import SafeScreen from "@/components/ui/safe-screen";
 
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import React from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
 const data = [
@@ -30,6 +32,8 @@ const data = [
 ];
 
 export default function Home() {
+    const router = useRouter();
+
     return (
         <SafeScreen>
             <View className="py-3 flex-row items-center justify-between">
@@ -47,11 +51,15 @@ export default function Home() {
                 </View>
             </View>
             <View className="mt-3 -mr-5">
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    pagingEnabled={false}
-                    horizontal
+                <Carousel
+                    loop={true}
+                    width={132}
+                    height={120}
+                    snapEnabled={true}
+                    pagingEnabled={true}
+                    autoPlayInterval={2000}
                     data={data}
+                    style={{ width: "100%" }}
                     renderItem={({ item, index }) => (
                         <View className="!w-[120px] !h-[120px] mr-3 border-2 border-primary-500 rounded-xl relative" key={index}>
                             <Text className="text-xs text-white absolute bottom-0 left-0 right-0 p-2 z-20">{item.title}</Text>
@@ -76,7 +84,9 @@ export default function Home() {
             <View className="gap-3 mt-6">
                 <View className="flex-row items-center justify-between">
                     <Text className="text-[16px] font-bold">Проекты</Text>
-                    <Text className="text-info-500 text-[16px] font-semibold">Все</Text>
+                    <Pressable onPress={() => router.push("/projects")}>
+                        <Text className="text-info-500 text-[16px] font-semibold">Все</Text>
+                    </Pressable>
                 </View>
                 <View className="-mr-5">
                     <Carousel
@@ -88,13 +98,9 @@ export default function Home() {
                         autoPlayInterval={2000}
                         data={data}
                         style={{ width: "100%" }}
-                        renderItem={({ item }) => (
+                        renderItem={({ index }) => (
                             <View className="w-[250px] h-[150px] bg-gray-100 rounded-xl overflow-hidden relative">
-                                <View className="w-[250px] h-[150px] rounded-xl">
-                                    <Image source={{ uri: item?.image }} className="w-full h-full object-cover" />
-                                </View>
-                                <LinearGradient colors={["transparent", "rgba(0,0,0,0.5)"]} style={styles.background} />
-                                <Text className="absolute bottom-0 left-0 right-0 px-4 pb-3 z-20 text-white font-semibold text-sm">{item?.title}</Text>
+                                <ComplexCard />
                             </View>
                         )}
                     />
