@@ -47,7 +47,7 @@ export default function Login() {
                         <ArrowLeftIcon />
                         <Text className="text-gray-900 text-[16px] font-bold">Авторизация</Text>
                     </Pressable>
-                    <View className="gap-6 mt-10">
+                    <View className="gap-[24px] mt-10">
                         <View className="gap-3">
                             <Text className="text-gray-900 text-[32px] font-bold">Введите номер телефона и пароль</Text>
                             <Text className="text-gray-900 text-sm">Чтобы войти или зарегистрироваться</Text>

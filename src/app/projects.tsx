@@ -159,7 +159,7 @@ export default function Projects() {
                         <Text className="text-xl font-bold text-gray-900">Фильтры</Text>
                         <Text className="text-sm text-gray-500">Выберите недвижимость</Text>
                     </View>
-                    <View className="p-5 !pb-[60px] gap-6">
+                    <View className="p-5 !pb-[60px] gap-[24px]">
                         <View>
                             <Text className="text-base font-semibold text-gray-900 mb-3">Класс</Text>
                             <View className="flex-row flex-wrap gap-2">
