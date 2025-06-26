@@ -7,10 +7,13 @@ module.exports = {
         extend: {
             colors: {
                 "primary-500": "#D6ED17",
+                "gray-50": "#f6f6f6",
                 "gray-100": "#F5F5F5",
                 "gray-300": "#B8B8B8",
                 "gray-900": "#1D1D1D",
                 "info-500": "#3B82F6",
+                "error-500": "#EF4444",
+                "warning-500": "#F59E0B",
             },
         },
     },

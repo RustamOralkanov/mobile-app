@@ -2,10 +2,9 @@ import CaretRightIcon from "@/components/icons/caret-right-icon";
 import ComplexCard from "@/components/ui/complex-card";
 import SafeScreen from "@/components/ui/safe-screen";
 
-import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
 const data = [
@@ -69,7 +68,7 @@ export default function Home() {
                     )}
                 />
             </View>
-            <View className="flex-row items-center gap-2.5 rounded-xl h-[70px] mt-6 relative overflow-hidden">
+            <View className="flex-row items-center gap-2.5 rounded-xl h-[70px] mt-[24px] relative overflow-hidden">
                 <View className="flex-1 flex-row gap-1 items-center relative z-10 pl-4">
                     <Text className="text-gray-900 text-sm">Показать</Text>
                     <View className="flex-row items-center px-2 py-1 bg-white/50 rounded-md">
@@ -81,7 +80,7 @@ export default function Home() {
                     <Image source={require("../../assets/images/flats.png")} className="w-full h-full" />
                 </View>
             </View>
-            <View className="gap-3 mt-6">
+            <View className="gap-3 mt-[24px]">
                 <View className="flex-row items-center justify-between">
                     <Text className="text-[16px] font-bold">Проекты</Text>
                     <Pressable onPress={() => router.push("/projects")}>
@@ -106,34 +105,35 @@ export default function Home() {
                     />
                 </View>
             </View>
-            <View className="gap-3 mt-6">
+            <View className="gap-3 mt-[24px]">
                 <View className="flex-row items-center justify-between">
                     <Text className="text-[16px] font-bold">Новости</Text>
-                    <Text className="text-info-500 text-[16px] font-semibold">Все</Text>
+                    <Pressable onPress={() => router.push("/news" as any)}>
+                        <Text className="text-info-500 text-[16px] font-semibold">Все</Text>
+                    </Pressable>
                 </View>
                 <View className="-mr-5">
                     <Carousel
                         loop={true}
                         width={262}
-                        height={150}
+                        height={200}
                         snapEnabled={true}
                         pagingEnabled={true}
                         autoPlayInterval={2000}
                         data={data}
                         style={{ width: "100%" }}
                         renderItem={({ item }) => (
-                            <View className="w-[250px] h-[150px] bg-gray-100 rounded-xl overflow-hidden relative">
-                                <View className="w-[250px] h-[150px] rounded-xl">
-                                    <Image source={{ uri: item?.image }} className="w-full h-full object-cover" />
+                            <Pressable className="w-[250px]">
+                                <View className="w-[250px] h-[140px] rounded-xl">
+                                    <Image source={{ uri: item?.image }} className="w-full h-full object-cover rounded-[10px]" />
                                 </View>
-                                <LinearGradient colors={["transparent", "rgba(0,0,0,0.5)"]} style={styles.background} />
-                                <Text className="absolute bottom-0 left-0 right-0 px-4 pb-3 z-20 text-white font-semibold text-sm">{item?.title}</Text>
-                            </View>
+                                <Text className="text-gray-900 font-semibold text-[16px] mt-[12px] line-clamp-2">{item?.title}</Text>
+                            </Pressable>
                         )}
                     />
                 </View>
             </View>
-            <View className="gap-3 mt-6">
+            <View className="gap-3 mt-[24px]">
                 <View className="flex-row items-center justify-between">
                     <Text className="text-[16px] font-bold">Акции</Text>
                     <Text className="text-info-500 text-[16px] font-semibold">Все</Text>
@@ -142,19 +142,18 @@ export default function Home() {
                     <Carousel
                         loop={true}
                         width={262}
-                        height={150}
+                        height={200}
                         snapEnabled={true}
                         pagingEnabled={true}
                         autoPlayInterval={2000}
                         data={data}
                         style={{ width: "100%" }}
                         renderItem={({ item }) => (
-                            <View className="w-[250px] h-[150px] bg-gray-100 rounded-xl overflow-hidden relative">
-                                <View className="w-[250px] h-[150px] rounded-xl">
-                                    <Image source={{ uri: item?.image }} className="w-full h-full object-cover" />
+                            <View className="w-[250px]">
+                                <View className="w-[250px] h-[140px] rounded-xl">
+                                    <Image source={{ uri: item?.image }} className="w-full h-full object-cover rounded-[10px]" />
                                 </View>
-                                <LinearGradient colors={["transparent", "rgba(0,0,0,0.5)"]} style={styles.background} />
-                                <Text className="absolute bottom-0 left-0 right-0 px-4 pb-3 z-20 text-white font-semibold text-sm">{item?.title}</Text>
+                                <Text className="text-gray-900 font-semibold text-[16px] mt-[12px] line-clamp-2">{item?.title}</Text>
                             </View>
                         )}
                     />
@@ -163,13 +162,3 @@ export default function Home() {
         </SafeScreen>
     );
 }
-
-const styles = StyleSheet.create({
-    background: {
-        position: "absolute",
-        left: 0,
-        right: 0,
-        top: 0,
-        height: 150,
-    },
-});
